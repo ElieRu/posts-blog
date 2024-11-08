@@ -1,5 +1,5 @@
 
-import Post from "../../../lib/models/post";
+import Post from "../../../lib/models";
 // import { posts } from "../../../lib/datas"
 
 export async function GET(
