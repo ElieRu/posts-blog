@@ -1,6 +1,13 @@
 
-export const posts = [
-    { id: 1, name: 'Lorem 1' },
-    { id: 2, name: 'Lorem 2' },
-    { id: 3, name: 'Lorem 3' }
-]
+export const fetchPosts = async () => {
+    try {
+        const response = await fetch(`/api/posts`);
+        const data = await response.json();
+        return data;        
+    } catch (error) {
+        console.log(error);        
+    }    
+};
+
+
+

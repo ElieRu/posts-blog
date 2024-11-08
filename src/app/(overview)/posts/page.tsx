@@ -3,64 +3,36 @@
 import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
 import Loading from "./loading";
+import { fetchPosts } from "@/app/lib/datas";
+import { createPost, deletePost } from "@/app/lib/actions";
 
-export default function Page() {
+function Page() {
   const [posts, setPosts] = useState([]);
-
-  const fetchPosts = async () => {
-    try {
-      const res = await fetch(`/api/posts`, {
-        method: "get",
-      });
-      setPosts(await res.json());
-    } catch (error) {
-      console.log(error);
-    }
+  const getPosts = async () => {
+    setPosts(await fetchPosts());
   };
-
   useEffect(() => {
-    fetchPosts();
+    getPosts();
   }, []);
 
   const handleDelete = (id) => {
     const fetchDelete = async () => {
-      try {
-        const res = await fetch(`/api/posts/${id}`, {
-          method: "delete",
-        });
-
-        setPosts(await res.json());
-      } catch (error) {
-        console.log(error);
-      }
+      setPosts(await deletePost(id));
     };
-
     fetchDelete();
   };
 
   const [form, setForm] = useState({ name: "" });
-  const [disable, setDisable] = useState(false)
-
+  const [disable, setDisable] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     setDisable(true);
     const fetchCreate = async () => {
-      try {
-        const create_post = await fetch(`/api/posts`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(form),
-        });
-        setPosts(await create_post.json());
-        setDisable(false);
-        setForm({...form, name: ''});
-      } catch (error) {
-        console.log(error);
-      }
+      const createdPost = await createPost(form);
+      setPosts(createdPost);
+      setDisable(false);
+      setForm({ ...form, name: "" });
     };
-
     fetchCreate();
   };
 
@@ -77,7 +49,9 @@ export default function Page() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
-            <button disabled={disable} type="submit">submit</button>
+            <button disabled={disable} type="submit">
+              submit
+            </button>
           </form>
         </div>
         <ul>
@@ -92,3 +66,5 @@ export default function Page() {
     </div>
   );
 }
+
+export default Page;

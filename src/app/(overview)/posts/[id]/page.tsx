@@ -3,6 +3,7 @@ import { useRouter, useParams } from "next/navigation";
 // import { useRouter } from "next/router";
 import { Suspense, useEffect, useState } from "react";
 import { Metadata } from "next";
+import { getPost, updatePost } from "@/app/lib/actions";
 
 // export const generateMetadata = ({params}: {params: {id: String}}): Metadata => {
 //   return {
@@ -18,19 +19,10 @@ export default function Page({
 
   const [post, setPost] = useState({});
   const fetchPost = async () => {
-    try {
-      const res = await fetch(`/api/posts/${params.id}`, {
-        method: 'get'
-      });
-      setPost(await res.json());
-    } catch (error) {
-      console.log(error);
-    }
+    const selectedPost = await getPost(params.id);
+    setPost(selectedPost);
   };
-
-  useEffect(() => {
-    fetchPost();
-  }, []);
+  fetchPost();
 
   const [form, setForm] = useState({name: ''})
   const [disable, setDisable] = useState(false)
@@ -38,19 +30,10 @@ export default function Page({
   const handleSubmit = async (e) => {
     e.preventDefault()
     setDisable(true)
-    try {
-      const res = await fetch(`/api/posts/${post._id}`, {
-        method: 'put',
-        body: JSON.stringify(form)
-      })
-      setPost(await res.json());
-      setForm({
-        name: ''
-      });
-      setDisable(false);
-  } catch (error) {
-      console.log(error);
-    }    
+    const updatedPost = await updatePost(params.id, form);
+    setPost(updatedPost);
+    setForm({...form, name: ''});
+    setDisable(false);
   }
 
   return (
