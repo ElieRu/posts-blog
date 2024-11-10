@@ -3,7 +3,8 @@ import { useRouter, useParams } from "next/navigation";
 // import { useRouter } from "next/router";
 import { Suspense, useEffect, useState } from "react";
 import { Metadata } from "next";
-import { getPost, updatePost } from "@/app/lib/actions";
+import { deletePost, getPost, updatePost } from "@/app/lib/actions";
+import Link from "next/link";
 
 // export const generateMetadata = ({params}: {params: {id: String}}): Metadata => {
 //   return {
@@ -16,7 +17,6 @@ export default function Page({
 }: {
   params: { id: String; name: String };
 }) {
-
   const [post, setPost] = useState({});
   const fetchPost = async () => {
     const selectedPost = await getPost(params.id);
@@ -24,35 +24,22 @@ export default function Page({
   };
   fetchPost();
 
-  const [form, setForm] = useState({name: ''})
-  const [disable, setDisable] = useState(false)
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setDisable(true)
-    const updatedPost = await updatePost(params.id, form);
-    setPost(updatedPost);
-    setForm({...form, name: ''});
-    setDisable(false);
-  }
+  const handleDelete = (id) => {
+    const fetchDelete = async () => {
+      await deletePost(params.id);
+    };
+    fetchDelete();
+  };
 
   return (
     <>
       <Suspense fallback={<p>wait...</p>}>
         <div>
+          <button onClick={() => handleDelete(post._id)}>Delete</button>
+          <Link href={`${params.id}/update`}>update</Link>
           <p>Post name: {post.name}</p>
-          <form method="get" onSubmit={handleSubmit}>
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="update" 
-              value={form.name} 
-              onChange={(e) => setForm({...form, name: e.target.value})} 
-            />
-            <button type="submit" disabled={disable}>update</button>
-          </form>
         </div>
       </Suspense>
     </>
-  )
+  );
 }
