@@ -22,7 +22,8 @@ export async function POST(request: Request) {
     await Post.create(new_post);
     const all_posts = await Post.find({});
     
-    return new NextResponse(JSON.stringify(all_posts), {
+    return new NextResponse(
+        JSON.stringify(all_posts), {
         headers: {
             "Content-Type": "application/json"
         },

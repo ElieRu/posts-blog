@@ -1,6 +1,6 @@
 
+import { NextResponse } from "next/server";
 import { Post } from "../../../lib/models";
-// import { posts } from "../../../lib/datas"
 
 export async function GET(
     request: Request,
@@ -9,7 +9,7 @@ export async function GET(
     const post = await Post.findById({}).where(
         {_id: params.id}
     );
-    return Response.json(post);
+    return NextResponse.json(post);
 }
 
 export async function PUT(
@@ -38,8 +38,6 @@ export async function DELETE(
         _id: params.id
     })
 
-    const all_posts = await Post.find({});
-
-    return Response.json(all_posts)
+    return Response.redirect('/posts');
 }
 
