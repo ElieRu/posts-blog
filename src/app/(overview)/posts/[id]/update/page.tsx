@@ -1,15 +1,26 @@
-'use client'
-import { updatePost } from "@/app/lib/actions";
-import { useState } from "react";
+"use client";
+import { getPost, updatePost } from "@/app/lib/actions";
+import { useEffect, useState } from "react";
 
 export default function Page({
-    params,
-  }: {
-    params: { id: String; name: String };
-  }) {
-  const [form, setForm] = useState({ name: "" });
+  params,
+}: {
+  params: { id: String; name: String };
+}) {
   const [disable, setDisable] = useState(false);
   const [post, setPost] = useState({});
+  const [form, setForm] = useState({name: ''});
+
+  const fetchPost = async () => {
+    const selectedPost = await getPost(params.id);
+    // setPost(selectedPost);
+    setForm(selectedPost);
+  };
+
+  useEffect(() => {
+    fetchPost();
+    // setForm({...form, data.name});
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

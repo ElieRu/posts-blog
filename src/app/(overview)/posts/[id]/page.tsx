@@ -22,9 +22,11 @@ export default function Page({
     const selectedPost = await getPost(params.id);
     setPost(selectedPost);
   };
-  fetchPost();
+  useEffect(() => {
+    fetchPost();
+  }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: String) => {
     const fetchDelete = async () => {
       await deletePost(params.id);
     };
@@ -33,12 +35,10 @@ export default function Page({
 
   return (
     <>
+      <button onClick={() => handleDelete(post._id)}>Delete</button>
+      <Link href={`${params.id}/update`}>update</Link>
       <Suspense fallback={<p>wait...</p>}>
-        <div>
-          <button onClick={() => handleDelete(post._id)}>Delete</button>
-          <Link href={`${params.id}/update`}>update</Link>
-          <p>Post name: {post.name}</p>
-        </div>
+        <p>Post name: {post.name}</p>
       </Suspense>
     </>
   );

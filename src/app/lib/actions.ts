@@ -1,6 +1,6 @@
-import { Post } from "./definitions";
+import { Form } from "./definitions";
 
-export async function createPost (form: Post) {
+export async function createPost (form: Form) {
     try {
         const createdPost = await fetch(`/api/posts`, {
             method: "post",
@@ -15,18 +15,18 @@ export async function createPost (form: Post) {
     }
 }
 
-export async function deletePost (id) {
+export async function deletePost (id: String) {
     try {
         const response = await fetch(`/api/posts/${id}`, {
           method: "delete",
         });
-        return await response.json();
+        // return response;
     } catch (error) {
     console.log(error);
     }
 }
 
-export async function getPost(id) {
+export async function getPost(id: String) {
     try {
         const response = await fetch(`/api/posts/${id}`);
         return response.json();
@@ -35,7 +35,7 @@ export async function getPost(id) {
     }
 }
 
-export async function updatePost(id, form) {
+export async function updatePost(id: String, form: Form) {
     try {
         const response = await fetch(`/api/posts/${id}`, {
           method: 'put',

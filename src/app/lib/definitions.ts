@@ -31,11 +31,9 @@ export type FormState =
 
 
 
-  export type Post {
-    id: Number,
+  export interface Form {
     name: String
   }
-
   
   export interface Personnel {
     id: Number,
