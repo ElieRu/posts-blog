@@ -11,7 +11,7 @@ export async function createPost (form: Form) {
         });
         return createdPost.json();
     } catch (error) {
-    console.log(error);
+        console.log(error);
     }
 }
 

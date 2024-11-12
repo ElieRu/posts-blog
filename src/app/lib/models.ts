@@ -1,7 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
 const PostSchema = new Schema({ 
-    name: String 
+    name: {
+        type: Number,
+        required: true
+    } 
 }, { 
     timestamps: true 
 });

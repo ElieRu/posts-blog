@@ -15,10 +15,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
     const post = await request.json();
+    parseInt(post.name);
+    // post.name = post.name + 2;
+    console.log(typeof(post.name));    
     const new_post = {
         name: post.name
     }
-    await connect_db();
+    // await connect_db();
     await Post.create(new_post);
     const all_posts = await Post.find({});
     

@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function Page() {
   const [form, setForm] = useState<Form>({
-    name: ''
+    name: 10
   });
   const [disable, setDisable] = useState(false);
 
@@ -16,10 +16,9 @@ export default function Page() {
     event.preventDefault();
     setDisable(true);
     const fetchCreate = async () => {
-      const createdPost = await createPost(form);
-      //   setPosts(createdPost);
+      await createPost(form);
       setDisable(false);
-      setForm({ ...form, name: "" });
+      setForm({ ...form, name: 77 });
     };
     fetchCreate();
   };
