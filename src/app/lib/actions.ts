@@ -1,18 +1,15 @@
-import { Form } from "./definitions";
+import { PostForm } from "./definitions";
 
-export async function createPost (form: Form) {
-    try {
-        const createdPost = await fetch(`/api/posts`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-        });
-        return createdPost.json();
-    } catch (error) {
-        console.log(error);
-    }
+export async function createPost (form: PostForm) {
+    const createdPost = await fetch(`/api/posts`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+    });
+    
+    return createdPost.json();
 }
 
 export async function deletePost (id: String) {
