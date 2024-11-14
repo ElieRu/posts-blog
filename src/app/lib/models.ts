@@ -29,19 +29,16 @@ const PostSchema = new mongoose.Schema({
 });
 
 const CommentSchema = new Schema({ 
-    id: {
-        type: mongoose.Types.ObjectId
-      },
       content: {
         type: String,
         required: [true, "{VALUE} is not defined"]
       },
       postId: {
-        bsonType: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId
       },
-      userId: {
-        bsonType: mongoose.Types.ObjectId
-      },
+    //   userId: {
+    //     bsonType: mongoose.Types.ObjectId
+    //   },
 }, { 
     timestamps: true 
 });

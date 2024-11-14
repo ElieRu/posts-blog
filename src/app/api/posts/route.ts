@@ -18,12 +18,13 @@ export async function POST(request: Request) {
     // post.userId = 'done';
     const createdPost = new Post(post);
     // Must add the userId* attribute...
-    console.log(createdPost);
-    
+
     try {
         await createdPost.save();
-        const posts = await Post.find({});
-        
+        const posts = await Post.find({})
+            // .where({
+            //     userId: post.userId
+            // });
         return new NextResponse(
             JSON.stringify(posts), {
             headers: {

@@ -1,15 +1,31 @@
 
-import { NextResponse } from "next/server";
-import { Post } from "../../../lib/models";
+import { NextRequest, NextResponse } from "next/server";
+import { Comment, Post } from "../../../lib/models";
 
 export async function GET(
     request: Request,
     { params }: {params: { id: String }}
 ) {
-    const post = await Post.findById({}).where(
-        {_id: params.id}
-    );
-    return NextResponse.json(post);
+    const agg = [
+        {
+          $lookup: {
+            from: 'comments',
+            localField: '_id',
+            foreignField: 'postId',
+            as: 'result'
+          }
+        },
+        {
+            $match: {
+                $expr: {
+                    $ne: ["$_id", { $toObjectId: params.id }],
+                }
+            }
+          }
+      ];
+
+    const result = await Post.aggregate(agg);
+    return NextResponse.json(result);
 }
 
 export async function PUT(
@@ -40,4 +56,29 @@ export async function DELETE(
 
     return Response.redirect('/posts');
 }
+
+// Comment Requests..
+export async function POST(
+        request: Request,
+        { params }: { params: { id: String }}
+    ) {
+    const comment = await request.json();  
+    comment.postId = params.id;
+    const newComment = new Comment(comment);
+
+    try {
+        await newComment.save();
+        return new NextResponse(
+            JSON.stringify(newComment), {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            status: 201
+        });
+    } catch (error) {
+        return NextResponse.json(error);
+    }
+}
+
+
 
