@@ -7,6 +7,7 @@ export default function Navbar() {
     { name: "Home", link: "/" },
     { name: "Posts", link: "/posts" },
     { name: "Profile", link: "/profile" },
+    { name: "Login", link: "/login" },
     { name: "About", link: "/about" },
   ];
 

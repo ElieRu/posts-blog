@@ -15,19 +15,30 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
     const post = await request.json();
-    const new_post = {
-        name: post.name
-    }
-    await connect_db();
-    await Post.create(new_post);
-    const all_posts = await Post.find({});
+    // post.userId = 'done';
+    const createdPost = new Post(post);
+    // Must add the userId* attribute...
+    console.log(createdPost);
     
-    return new NextResponse(
-        JSON.stringify(all_posts), {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        status: 201
-    })
+    try {
+        await createdPost.save();
+        const posts = await Post.find({});
+        
+        return new NextResponse(
+            JSON.stringify(posts), {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            status: 201
+        });
+    } catch (error) {
+        // console.log(error);        
+        return new NextResponse(
+            JSON.stringify(error), {
+            status: 201
+            }
+        );
+    }
+    
 }
 

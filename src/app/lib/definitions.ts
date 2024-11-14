@@ -1,4 +1,5 @@
 
+import mongoose from 'mongoose'
 import { z } from 'zod'
  
 export const SignupFormSchema = z.object({
@@ -18,25 +19,20 @@ export const SignupFormSchema = z.object({
     .trim(),
 })
  
-export type FormState =
-  | {
+export type FormState = | {
       errors?: {
         name?: string[]
         email?: string[]
         password?: string[]
       }
       message?: string
-    }
-  | undefined
+    } | undefined
 
-
-
-  export interface Form {
-    name: String
+  export interface PostForm {
+    title: String,
+    content: String,
+    type: String,
+    userId: mongoose.Types.ObjectId
   }
   
-  export interface Personnel {
-    id: Number,
-    name: String
-  }
 

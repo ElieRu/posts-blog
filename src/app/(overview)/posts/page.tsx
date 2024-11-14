@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import Loading from "./loading";
 import { fetchPosts } from "@/app/lib/datas";
 
-function Page() {
+export default function Page() {
   const [posts, setPosts] = useState([]);
   const getPosts = async () => {
     setPosts(await fetchPosts());
@@ -18,7 +18,7 @@ function Page() {
     <div>
       <h3>Lits of posts</h3>
       <Link href={`/posts/create`}>New post</Link>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<p>Loading...</p>}>
         <ul>
           {posts.map((post, i) => (
             <li key={i}>
@@ -31,4 +31,3 @@ function Page() {
   );
 }
 
-export default Page;
