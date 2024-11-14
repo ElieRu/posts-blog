@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
 import Loading from "./loading";
 import { fetchPosts } from "@/app/lib/datas";
+import { deletePost } from "@/app/lib/actions";
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
@@ -14,6 +15,13 @@ export default function Page() {
     getPosts();
   }, []);
 
+  const handleDelete = (id: String) => {
+    const fetchDelete = async () => {
+      await deletePost(id);
+    };
+    fetchDelete();
+  };
+
   return (
     <div>
       <h3>Lits of posts</h3>
@@ -22,7 +30,8 @@ export default function Page() {
         <ul>
           {posts.map((post, i) => (
             <li key={i}>
-              <Link href={`posts/${post._id}`}>{post.name}</Link>
+              <Link href={`posts/${post._id}`}>{post.title}</Link>
+              <button onClick={() => handleDelete(post._id)}>Delete</button>
             </li>
           ))}
         </ul>

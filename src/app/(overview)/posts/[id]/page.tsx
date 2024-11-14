@@ -5,6 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Metadata } from "next";
 import { deletePost, getPost, updatePost } from "@/app/lib/actions";
 import Link from "next/link";
+import CommentForm from "@/app/ui/comment-form";
 
 // export const generateMetadata = ({params}: {params: {id: String}}): Metadata => {
 //   return {
@@ -26,19 +27,18 @@ export default function Page({
     fetchPost();
   }, []);
 
-  const handleDelete = (id: String) => {
-    const fetchDelete = async () => {
-      await deletePost(params.id);
-    };
-    fetchDelete();
-  };
-
   return (
     <>
-      <button onClick={() => handleDelete(post._id)}>Delete</button>
       <Link href={`${params.id}/update`}>update</Link>
       <Suspense fallback={<p>wait...</p>}>
-        <p>Post name: {post.name}</p>
+      <ul>
+        <li>Post title: {post.title}</li>
+          <li>Post content: {post.content}</li>
+          <li>Post type: {post.type}</li>
+      </ul>        
+      <div>
+        <CommentForm />
+      </div>
       </Suspense>
     </>
   );
