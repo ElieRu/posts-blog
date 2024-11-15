@@ -20,26 +20,33 @@ export default function Page({
 }: {
   params: { id: String; name: String };
 }) {
-  const [post, setPost] = useState(null);
+  const [posts, setPosts] = useState(null);
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const fetchPost = async () => {
     const data = await getPost(params.id);
-    setPost(data);
+    setPosts(data);
+    setComments(data[0].comments);
     setIsLoading(false);
-    console.log(data);
   };
 
   useEffect(() => {
     fetchPost();
   }, []);
 
+  // const newList = (comments) => {
+  //   setComments(comments);    
+  //   // console.log(comments);    
+  // }
+
   return (
     <>
-      <Link href={`${params.id}/update`}>update</Link>
-      {isLoading ? <p>Loading...</p> : <CardPost post={post[0]} />}
+      <Link href={`${params.id}/update`}>update</Link> <br />
+      <Link href={`/posts`}>back</Link>
+      {isLoading ? <p>Loading...</p> : <CardPost post={posts[0]} />}
 
       <div>
-        <CommentForm />
+        <CommentForm postId={params.id} updateItems={(comments) => setComments(comments)} />
       </div>
 
       <div>
@@ -47,7 +54,7 @@ export default function Page({
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <CardComments datas={post[0].comments} />
+          <CardComments postId={params.id} datas={comments} />
         )}
       </div>
     </>

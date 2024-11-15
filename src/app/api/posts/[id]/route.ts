@@ -63,19 +63,16 @@ export async function POST(
         { params }: { params: { id: String }}
     ) {
     const comment = await request.json();  
-    comment.postId = params.id;
-    const newComment = new Comment(comment);
-
+    const form = {
+        content: comment,
+        postId: params.id
+    };
+    const newComment = new Comment(form);
     try {
         await newComment.save();
-        return new NextResponse(
-            JSON.stringify(newComment), {
-            headers: {
-                "Content-Type": "application/json",
-                message: "Comment was added"
-            },
-            status: 201
-        });
+        const newList = await Comment.find({})
+            .where('postId', form.postId);
+        return NextResponse.json(newList);
     } catch (error) {
         return NextResponse.json(error);
     }

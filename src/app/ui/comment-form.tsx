@@ -1,15 +1,21 @@
 import { useState } from "react";
+import { createComment } from "../lib/actions";
+import { FormComment } from "../lib/definitions";
 
-export default function CommentForm() {
-    const [form, setForm] = useState({
+export default function CommentForm({ postId, updateItems }) {
+    const [form, setForm] = useState<FormComment>({
         content: ''
     });
 
     const [disable, setDisable] = useState(false);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setDisable(true);        
+        setDisable(true);
+
+        updateItems(await createComment(postId, form));
+
+        setForm({content: ''});
+        setDisable(false);
     }
 
     return (
