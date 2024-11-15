@@ -6,6 +6,8 @@ import { Metadata } from "next";
 import { deletePost, getPost, updatePost } from "@/app/lib/actions";
 import Link from "next/link";
 import CommentForm from "@/app/ui/comment-form";
+import CardComments from "@/app/ui/card-comments";
+import CardPost from "@/app/ui/card-post";
 
 // export const generateMetadata = ({params}: {params: {id: String}}): Metadata => {
 //   return {
@@ -18,11 +20,15 @@ export default function Page({
 }: {
   params: { id: String; name: String };
 }) {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const fetchPost = async () => {
-    const selectedPost = await getPost(params.id);
-    setPost(selectedPost);
+    const data = await getPost(params.id);
+    setPost(data);
+    setIsLoading(false);
+    console.log(data);
   };
+
   useEffect(() => {
     fetchPost();
   }, []);
@@ -30,16 +36,20 @@ export default function Page({
   return (
     <>
       <Link href={`${params.id}/update`}>update</Link>
-      <Suspense fallback={<p>wait...</p>}>
-      <ul>
-        <li>Post title: {post.title}</li>
-          <li>Post content: {post.content}</li>
-          <li>Post type: {post.type}</li>
-      </ul>        
+      {isLoading ? <p>Loading...</p> : <CardPost post={post[0]} />}
+
       <div>
         <CommentForm />
       </div>
-      </Suspense>
+
+      <div>
+        <h3>All comments</h3>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <CardComments datas={post[0].comments} />
+        )}
+      </div>
     </>
   );
 }
