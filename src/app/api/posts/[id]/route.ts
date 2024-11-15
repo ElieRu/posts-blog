@@ -12,13 +12,13 @@ export async function GET(
             from: 'comments',
             localField: '_id',
             foreignField: 'postId',
-            as: 'result'
+            as: 'comments'
           }
         },
         {
             $match: {
                 $expr: {
-                    $ne: ["$_id", { $toObjectId: params.id }],
+                    $eq: ["$_id", { $toObjectId: params.id }],
                 }
             }
           }
@@ -71,7 +71,8 @@ export async function POST(
         return new NextResponse(
             JSON.stringify(newComment), {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                message: "Comment was added"
             },
             status: 201
         });

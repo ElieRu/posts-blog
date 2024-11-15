@@ -9,16 +9,14 @@ export async function GET() {
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { commentId: String }}
+    { params }: { params: { id: String, commentId: String }}
 ) {
     await Comment.findOneAndDelete({
         _id: params.commentId
     });
 
-    const comments = await Comment.find({});
-        // .$where({
-        //     postId: params.id
-        // });
+    const comments = await Comment.find({})
+        .where('postId', params.id);
 
     return new NextResponse(
         JSON.stringify(comments), {
