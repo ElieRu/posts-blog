@@ -1,14 +1,20 @@
-export default function CardComments({ datas }) {
-  const handleDelete = (id: String) => {
-    console.log(id);
+import { deteleComment } from "@/app/lib/actions";
+import { useState } from "react";
+
+export default function CardComments({ postId, items, updateItems }) {
+  const handleDelete = async (id: String) => {
+    const response = await deteleComment(postId, id);
+    updateItems(response);
   };
+
+  
   return (
     <div>
       <ul>
-        {datas.map((comment, i) => (
+        {items.map((item, i) => (
           <li key={i}>
-            {comment.content}
-            <button onClick={() => handleDelete(comment._id)}>Delete</button>
+            {item.content}
+            <button onClick={() => handleDelete(item._id)}>Delete</button>
           </li>
         ))}
       </ul>

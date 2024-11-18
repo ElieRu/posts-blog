@@ -1,4 +1,4 @@
-import { PostForm } from "./definitions";
+import { PostForm, FormComment } from "./definitions";
 
 export async function createPost (form: PostForm) {
     const createdPost = await fetch(`/api/posts`, {
@@ -17,7 +17,7 @@ export async function deletePost (id: String) {
         const response = await fetch(`/api/posts/${id}`, {
           method: "delete",
         });
-        // return response;
+        return response.json();
     } catch (error) {
     console.log(error);
     }
@@ -32,7 +32,7 @@ export async function getPost(id: String) {
     }
 }
 
-export async function updatePost(id: String, form: Form) {
+export async function updatePost(id: String, form: PostForm) {
     try {
         const response = await fetch(`/api/posts/${id}`, {
           method: 'put',
@@ -43,3 +43,37 @@ export async function updatePost(id: String, form: Form) {
         console.log(error);
       }    
 }
+
+// Comments actions
+export async function createComment(id: String, form: FormComment) {
+    try {
+        const createdComment = await fetch(`/api/posts/${id}`, {
+            method: 'post', 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+        });    
+        const data = await createdComment.json();
+        return await createdComment.json();       
+    } catch (error) {
+        console.log(error);        
+    }
+}
+
+export async function deteleComment(postId: String, id: String) {
+    try {
+        const commentDeleted = await fetch(`/api/posts/${postId}/${id}`, {
+            method: 'delete'
+        });
+
+        const comments = await commentDeleted.json();
+        return comments;
+
+    } catch (error) {
+        console.log(error);        
+    }
+}
+
+
+
