@@ -54,7 +54,8 @@ export async function DELETE(
         _id: params.id
     })
 
-    return Response.redirect('/posts');
+    const posts = await Post.find({});
+    return Response.json(posts);
 }
 
 // Comment Requests..
@@ -67,8 +68,11 @@ export async function POST(
         content: comment,
         postId: params.id
     };
+
     const newComment = new Comment(form);
+    
     try {
+        // console.log(newComment);        
         await newComment.save();
         const newList = await Comment.find({})
             .where('postId', form.postId);

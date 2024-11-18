@@ -17,7 +17,7 @@ export async function deletePost (id: String) {
         const response = await fetch(`/api/posts/${id}`, {
           method: "delete",
         });
-        // return response;
+        return response.json();
     } catch (error) {
     console.log(error);
     }
@@ -46,15 +46,19 @@ export async function updatePost(id: String, form: PostForm) {
 
 // Comments actions
 export async function createComment(id: String, form: FormComment) {
-    const createdComment = await fetch(`/api/posts/${id}`, {
-        method: 'post', 
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-    });
-
-    return await createdComment.json();    
+    try {
+        const createdComment = await fetch(`/api/posts/${id}`, {
+            method: 'post', 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+        });    
+        const data = await createdComment.json();
+        return await createdComment.json();       
+    } catch (error) {
+        console.log(error);        
+    }
 }
 
 export async function deteleComment(postId: String, id: String) {

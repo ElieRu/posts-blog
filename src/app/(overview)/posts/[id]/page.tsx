@@ -34,27 +34,27 @@ export default function Page({
     fetchPost();
   }, []);
 
-  // const newList = (comments) => {
-  //   setComments(comments);    
-  //   // console.log(comments);    
-  // }
-
   return (
     <>
       <Link href={`${params.id}/update`}>update</Link> <br />
       <Link href={`/posts`}>back</Link>
       {isLoading ? <p>Loading...</p> : <CardPost post={posts[0]} />}
-
       <div>
-        <CommentForm postId={params.id} updateItems={(comments) => setComments(comments)} />
+        <CommentForm
+          postId={params.id}
+          updateItems={(comments) => setComments(comments)}
+        />
       </div>
-
       <div>
         <h3>All comments</h3>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <CardComments postId={params.id} datas={comments} />
+          <CardComments
+            postId={params.id}
+            items={comments}
+            updateItems={(comments) => setComments(comments)}
+          />
         )}
       </div>
     </>

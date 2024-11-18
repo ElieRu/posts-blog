@@ -29,7 +29,7 @@ const PostSchema = new mongoose.Schema({
 });
 
 const CommentSchema = new Schema({ 
-      content: {
+    content: {
         type: String,
         required: [true, "{VALUE} is not defined"]
       },
