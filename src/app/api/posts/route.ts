@@ -32,8 +32,7 @@ export async function POST(request: Request) {
             },
             status: 201
         });
-    } catch (error) {
-        // console.log(error);        
+    } catch (error) {      
         return new NextResponse(
             JSON.stringify(error), {
             status: 201

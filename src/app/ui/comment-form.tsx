@@ -12,7 +12,8 @@ export default function CommentForm({ postId, updateItems }) {
     e.preventDefault();
     setDisable(true);
 
-    updateItems(await createComment(postId, form));
+    const response = await createComment(postId, form);
+    updateItems(response);
 
     setForm({ content: "" });
     setDisable(false);

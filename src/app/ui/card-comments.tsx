@@ -6,7 +6,6 @@ export default function CardComments({ postId, items, updateItems }) {
     const response = await deteleComment(postId, id);
     updateItems(response);
   };
-
   
   return (
     <div>

@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <div>
-        create new post <Link href={`/posts`}>Back</Link>
+        <h1>create new post</h1> <Link href={`/posts`}>Back</Link>
       </div>
       <Link href={`/posts`}></Link>
       <div>

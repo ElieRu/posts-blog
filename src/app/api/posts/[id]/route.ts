@@ -32,11 +32,14 @@ export async function PUT(
     request: Request,
     { params }: {params: { id: String }}
 ) {
-    const { name } = await request.json();    
-    
+    const data = await request.json();    
     await Post.findByIdAndUpdate(
         { _id: params.id },
-        { name: name }
+        { 
+            title: data.title,
+            content: data.content,
+            type: data.type
+        }
     );
 
     const post_updated = await Post.findById(
@@ -72,7 +75,6 @@ export async function POST(
     const newComment = new Comment(form);
     
     try {
-        // console.log(newComment);        
         await newComment.save();
         const newList = await Comment.find({})
             .where('postId', form.postId);
