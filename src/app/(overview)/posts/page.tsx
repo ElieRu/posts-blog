@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
 import Loading from "./loading";
 import { fetchPosts } from "@/app/lib/datas";
-import { deletePost } from "@/app/lib/actions";
 import CardItemsPost from "@/app/ui/card-items-post";
+import SearchBar from "@/app/ui/search-bar";
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
@@ -16,13 +16,18 @@ export default function Page() {
     getPosts();
   }, []);
 
+  const [search, setSearch] = useState("");
+
   return (
     <div>
+      <SearchBar search={search} onChange={setSearch} />
       <h3>Lits of posts</h3>
       <Link href={`/posts/create`}>New post</Link>
-      {}
-        <CardItemsPost items={posts} updateItems={(posts) => setPosts(posts)} />
+      <CardItemsPost
+        items={posts}
+        updateItems={(posts) => setPosts(posts)}
+        search={search}
+      />
     </div>
   );
 }
-
