@@ -34,11 +34,12 @@ export async function POST(request: Request) {
         });
     } catch (error) {      
         return new NextResponse(
-            JSON.stringify(error), {
-            status: 201
+            JSON.stringify(error),
+            {
+                status: 201
             }
         );
     }
-    
+
 }
 

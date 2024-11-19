@@ -3,7 +3,6 @@ import { PostForm } from "../lib/definitions";
 import { createPost, getPost, updatePost } from "../lib/actions";
 
 export default function PostFormComponent({ postId }) {
-  const [post, setPost] = useState({});
   const [form, setForm] = useState<PostForm>({
     title: "",
     content: "",
@@ -11,9 +10,12 @@ export default function PostFormComponent({ postId }) {
   });
 
   const [disable, setDisable] = useState(false);
+  const [error, setError] = useState(false);
   const fetchPost = async () => {
-    const selectedPost = await getPost(postId);
-    setForm(selectedPost[0]);
+    if (postId) {
+      const selectedPost = await getPost(postId);
+      setForm(selectedPost[0]);
+    }
   };
 
   useEffect(() => {
@@ -25,10 +27,16 @@ export default function PostFormComponent({ postId }) {
   ) => {
     event.preventDefault();
     setDisable(true);
+    setError(false);
+
     if (postId) {
       const updatedPost = await updatePost(postId, form);
+      console.log(updatedPost);
     } else {
-      await createPost(form);
+      const response = await createPost(form);
+      if (response.errors) {
+        setError(true);
+      }
       setForm({
         ...form,
         title: "",
@@ -37,7 +45,6 @@ export default function PostFormComponent({ postId }) {
       });
     }
     setDisable(false);
-    
   };
 
   return (
@@ -72,6 +79,7 @@ export default function PostFormComponent({ postId }) {
           Artificial Intelligence and Machine Learning
         </option>
       </select>
+      {error && <p>Invalid form</p>}
       <button disabled={disable} type="submit">
         {postId ? "update" : "submit"}
       </button>

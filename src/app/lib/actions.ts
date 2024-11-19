@@ -38,7 +38,7 @@ export async function updatePost(id: String, form: PostForm) {
           method: 'put',
           body: JSON.stringify(form)
         })
-        return response.json();
+        return response;
     } catch (error) {
         console.log(error);
       }    
@@ -54,8 +54,8 @@ export async function createComment(id: String, form: FormComment) {
             },
             body: JSON.stringify(form)
         });    
-        const data = await createdComment.json();
-        return data;
+        const response = await createdComment.json();
+        return response;
     } catch (error) {
         console.log(error);  
     }
@@ -67,8 +67,8 @@ export async function deteleComment(postId: String, id: String) {
             method: 'delete'
         });
 
-        const comments = await commentDeleted.json();
-        return comments;
+        const response = await commentDeleted.json();
+        return response;
 
     } catch (error) {
         console.log(error);        

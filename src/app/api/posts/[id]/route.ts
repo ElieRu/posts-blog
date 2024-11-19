@@ -1,52 +1,63 @@
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { Comment, Post } from "../../../lib/models";
 
 export async function GET(
     request: Request,
     { params }: {params: { id: String }}
 ) {
-    const agg = [
-        {
-          $lookup: {
-            from: 'comments',
-            localField: '_id',
-            foreignField: 'postId',
-            as: 'comments'
-          }
-        },
-        {
-            $match: {
-                $expr: {
-                    $eq: ["$_id", { $toObjectId: params.id }],
+    try {
+        const agg = [
+            {
+              $lookup: {
+                from: 'comments',
+                localField: '_id',
+                foreignField: 'postId',
+                as: 'comments'
+              }
+            },
+            {
+                $match: {
+                    $expr: {
+                        $eq: ["$_id", { $toObjectId: params.id }],
+                    }
                 }
+              }
+          ];
+    
+        const result = await Post.aggregate(agg);
+        return NextResponse.json(result);
+    } catch (error) {
+        return new NextResponse(
+            JSON.stringify(error), {
+                status: 404
             }
-          }
-      ];
-
-    const result = await Post.aggregate(agg);
-    return NextResponse.json(result);
+        );
+    }
 }
 
 export async function PUT(
     request: Request,
     { params }: {params: { id: String }}
 ) {
-    const data = await request.json();    
-    await Post.findByIdAndUpdate(
-        { _id: params.id },
-        { 
-            title: data.title,
-            content: data.content,
-            type: data.type
-        }
-    );
-
-    const post_updated = await Post.findById(
+    const data = await request.json(); 
+    const post = new Post(data);
+    const postUpdated = await Post.findById(
         { _id: params.id }
-    )   
+    )
+    try {
+        await Post.findByIdAndUpdate(
+            { _id: params.id },
+            post, {
+                runValidators: true
+            }
+        );   
 
-    return Response.json(post_updated);
+        return Response.json(postUpdated);
+    } catch (error) {
+        console.log(error);
+        return NextResponse.json(error);
+    }       
 }
 
 export async function DELETE(
@@ -80,7 +91,14 @@ export async function POST(
             .where('postId', form.postId);
         return NextResponse.json(newList);
     } catch (error) {
-        return NextResponse.json(error);
+        const comments = await Comment.find({})
+            .where('postId', form.postId);
+
+        const response = {
+            error,
+            comments
+        };        
+        return NextResponse.json(response);
     }
 }
 
