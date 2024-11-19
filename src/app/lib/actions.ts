@@ -55,9 +55,9 @@ export async function createComment(id: String, form: FormComment) {
             body: JSON.stringify(form)
         });    
         const data = await createdComment.json();
-        return await createdComment.json();       
+        return data;
     } catch (error) {
-        console.log(error);        
+        console.log(error);  
     }
 }
 

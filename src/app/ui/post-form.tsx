@@ -1,33 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostForm } from "../lib/definitions";
-import { createPost } from "../lib/actions";
+import { createPost, getPost, updatePost } from "../lib/actions";
 
-export default function PostFormComponent() {
+export default function PostFormComponent({ postId }) {
+  const [post, setPost] = useState({});
   const [form, setForm] = useState<PostForm>({
-    title: "title 1",
-    content: "content 1",
+    title: "",
+    content: "",
     type: "",
   });
 
   const [disable, setDisable] = useState(false);
+  const fetchPost = async () => {
+    const selectedPost = await getPost(postId);
+    setForm(selectedPost[0]);
+  };
 
-  const handleSubmit = (
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  const handleSubmit = async (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     event.preventDefault();
     setDisable(true);
-    const fetchCreate = async () => {
+    if (postId) {
+      const updatedPost = await updatePost(postId, form);
+    } else {
       await createPost(form);
-      setDisable(false);
-
       setForm({
         ...form,
         title: "",
         content: "",
         type: "",
       });
-    };
-    fetchCreate();
+    }
+    setDisable(false);
+    
   };
 
   return (
@@ -63,7 +73,7 @@ export default function PostFormComponent() {
         </option>
       </select>
       <button disabled={disable} type="submit">
-        submit
+        {postId ? "update" : "submit"}
       </button>
     </form>
   );

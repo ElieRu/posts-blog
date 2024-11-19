@@ -6,7 +6,6 @@ export default function CardItemsPost({ items, updateItems, search }) {
     const fetchDelete = async () => {
       const response = await deletePost(id);
       updateItems(response);
-      console.log(response);
     };
     fetchDelete();
   };
