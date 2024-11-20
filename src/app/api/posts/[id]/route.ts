@@ -51,13 +51,11 @@ export async function PUT(
             post, {
                 runValidators: true
             }
-        );   
-
+        );  
         return Response.json(postUpdated);
     } catch (error) {
-        console.log(error);
         return NextResponse.json(error);
-    }       
+    }
 }
 
 export async function DELETE(
