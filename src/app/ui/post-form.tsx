@@ -30,8 +30,10 @@ export default function PostFormComponent({ postId }) {
     setError(false);
 
     if (postId) {
-      const updatedPost = await updatePost(postId, form);
-      console.log(updatedPost);
+      const response = await updatePost(postId, form);
+      if (response.errors) {
+        setError(true);
+      }
     } else {
       const response = await createPost(form);
       if (response.errors) {

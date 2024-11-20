@@ -33,15 +33,11 @@ export async function getPost(id: String) {
 }
 
 export async function updatePost(id: String, form: PostForm) {
-    try {
-        const response = await fetch(`/api/posts/${id}`, {
-          method: 'put',
-          body: JSON.stringify(form)
-        })
-        return response;
-    } catch (error) {
-        console.log(error);
-      }    
+    const response = await fetch(`/api/posts/${id}`, {
+        method: 'put',
+        body: JSON.stringify(form)
+    });
+    return await response.json();
 }
 
 // Comments actions
