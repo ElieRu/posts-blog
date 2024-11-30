@@ -64,6 +64,10 @@ export async function DELETE(
 ) {
     await Post.deleteOne({
         _id: params.id
+    });
+
+    await Comment.deleteMany({
+        postId: params.id
     })
 
     const posts = await Post.find({});
