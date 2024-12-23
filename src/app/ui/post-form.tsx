@@ -3,7 +3,7 @@ import { PostForm } from "../lib/definitions";
 import { createPost, getPost, updatePost } from "../lib/actions";
 
 export default function PostFormComponent({ postId }) {
-  const [form, setForm] = useState<PostForm>({
+  const [form, setForm] = useState({
     title: "",
     content: "",
     type: "",
@@ -52,21 +52,27 @@ export default function PostFormComponent({ postId }) {
   return (
     <form method="post" onSubmit={handleSubmit}>
       <input
-        placeholder="title"
+        placeholder="Title"
         type="text"
         name="title"
+        className="mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4"
         value={form.title}
         onChange={(e) => setForm({ ...form, title: e.target.value })}
       />
-      <br />
+
       <textarea
         name="content"
         value={form.content}
+        className="mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4"
+        style={{ resize: "none" }}
+        placeholder="Content"
+        rows={5}
         onChange={(e) => setForm({ ...form, content: e.target.value })}
       ></textarea>
-      <br />
+
       <select
         value={form.type}
+        className="mb-2 bg-gray-50 text-gray-600 border focus:border-transparent border-gray-300 sm:text-sm rounded-lg ring ring-transparent focus:ring-1 focus:outline-none focus:ring-gray-400 block w-full p-2.5 rounded-l-lg py-3 px-4"
         onChange={(e) => setForm({ ...form, type: e.target.value })}
       >
         <option value="Programming and Development">
@@ -81,9 +87,18 @@ export default function PostFormComponent({ postId }) {
           Artificial Intelligence and Machine Learning
         </option>
       </select>
-      {error && <p>Invalid form</p>}
-      <button disabled={disable} type="submit">
-        {postId ? "update" : "submit"}
+      {error && (
+        <p className="bg-red-200 mb-2 text-gray  text-sm  p-2 rounded-lg ">
+          Invalid form
+        </p>
+      )}
+
+      <button
+        disabled={disable}
+        type="submit"
+        className="bg-[#7e22ce] text-[#ffffff]  text-sm  p-3 rounded-lg hover:bg-purple-800 active:scale-95 transition-transform transform"
+      >
+        {postId ? "Update This Post" : "Submit"}
       </button>
     </form>
   );

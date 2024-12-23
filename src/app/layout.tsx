@@ -4,16 +4,18 @@ import { useState } from "react";
 // app/layout.jsx
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import "./globals.css";
+import { Footer } from "./ui/footer";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <UserProvider>
         <body>
-          {/* ms:px-0 */}
           <Navbar />
-          {children}
-          <h3>Footer</h3>
+          <div style={{paddingTop: '80px'}}>
+            {children}
+          </div>
+          <Footer/>
         </body>
       </UserProvider>
     </html>
