@@ -1,6 +1,8 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Login from "../api/auth/login";
+import Logout from "../api/auth/logout";
 
 export default function Navbar() {
   const navs = [
@@ -14,6 +16,7 @@ export default function Navbar() {
   const pathname = usePathname();
   
   return (
+    <>
     <ul>
       {navs.map((nav, i) => {
         const isActive = pathname.startsWith(nav.link)
@@ -25,5 +28,8 @@ export default function Navbar() {
         </li>)
       })}
     </ul>
+    <Login/>
+    <Logout/>
+    </>
   );
 }
