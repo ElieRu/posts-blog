@@ -7,14 +7,22 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <>
-      <div>
-        <h1>create new post</h1> <Link href={`/posts`}>Back</Link>
+    <div className="px-16 my-5">
+      <div className="flex justify-between">
+        <div className="w-1/2">
+          <h1 className="text-3xl">Create New Post</h1> 
+        </div>
+        <Link className="w-1/2"
+          className="bg-[#7e22ce] text-[#ffffff]  text-sm  p-3 rounded-lg hover:bg-purple-800 active:scale-95 transition-transform transform"
+          href={`/posts`}
+        >
+          Back
+        </Link>
       </div>
-      <Link href={`/posts`}></Link>
-      <div>
+
+      <div className="my-4">
         <PostFormComponent />
       </div>
-    </>
+    </div>
   );
 }
