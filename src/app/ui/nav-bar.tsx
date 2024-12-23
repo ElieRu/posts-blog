@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Login from "../api/auth/login";
@@ -9,27 +9,32 @@ export default function Navbar() {
     { name: "Home", link: "/" },
     { name: "Posts", link: "/posts" },
     { name: "Profile", link: "/profile" },
-    { name: "Login", link: "/login" },
-    { name: "About", link: "/about" },
+    { name: "Login", link: "/api/auth/login" },
+    { name: "Logout", link: "/api/auth/logout" },
   ];
 
   const pathname = usePathname();
-  
+
   return (
-    <>
-    <ul>
-      {navs.map((nav, i) => {
-        const isActive = pathname.startsWith(nav.link)
-        // console.log(isActive);        
-        return (<li key={i}>
-          <Link 
-            href={`${nav.link}`}
-            className={isActive ? 'text-red-500' : 'text-blue-500'}>{nav.name}</Link>
-        </li>)
-      })}
-    </ul>
-    <Login/>
-    <Logout/>
-    </>
+    <div className="position-fixed flex justify-between py-5 px-16 bg-slate-200">
+      <span>
+        <Link href={'/'}>Logo</Link>
+      </span>
+      <div>
+        {navs.map((nav, i) => {
+          const isActive = pathname.startsWith(nav.link);
+          return (
+            <Link
+              key={i}
+              href={`${nav.link}`}
+              style={{padding: '5px'}}
+              className={isActive ? "text-red-500" : "text-blue-500"}
+            >
+              {nav.name}
+            </Link>
+          );
+        })}
+      </div>
+    </div>
   );
 }
