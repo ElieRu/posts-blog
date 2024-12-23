@@ -19,15 +19,26 @@ export default function Page() {
   const [search, setSearch] = useState("");
 
   return (
-    <div>
-      <SearchBar search={search} onChange={setSearch} />
-      <h3>Lits of posts</h3>
-      <Link href={`/posts/create`}>New post</Link>
-      <CardItemsPost
-        items={posts}
-        updateItems={(posts) => setPosts(posts)}
-        search={search}
-      />
+    <div className="px-16 my-5">
+      <div className="flex justify-between content-center items-center">
+        <SearchBar search={search} onChange={setSearch} />
+        <div>
+          <Link
+            href={`/posts/create`}
+            className="bg-[#7e22ce] text-[#ffffff] w-full  text-sm  p-3 rounded-lg hover:bg-purple-800 active:scale-95 transition-transform transform"
+          >
+            New post
+          </Link>
+        </div>
+      </div>
+
+      <div className="my-4">
+        <CardItemsPost
+          items={posts}
+          updateItems={(posts) => setPosts(posts)}
+          search={search}
+        />
+      </div>
     </div>
   );
 }

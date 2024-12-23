@@ -1,21 +1,21 @@
-'use client'
+"use client";
 import Navbar from "@/app/ui/nav-bar";
 import { useState } from "react";
+// app/layout.jsx
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+import "./globals.css";
 
-export default function Layout({ children }: { children: React.ReactDOM }) {
-  const [name, setName] = useState('')
+export default function RootLayout({ children }) {
   return (
-    <html>
-      <body>
-        <div>
-          <h1>Header</h1>
-          <Navbar/>
-          <div>
-            {children}
-          </div>
-          <h1>Footer</h1>
-        </div>
-      </body>
+    <html lang="en">
+      <UserProvider>
+        <body>
+          {/* ms:px-0 */}
+          <Navbar />
+          {children}
+          <h3>Footer</h3>
+        </body>
+      </UserProvider>
     </html>
   );
 }
