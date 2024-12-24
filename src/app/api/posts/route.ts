@@ -4,6 +4,9 @@ import connect_db from "@/app/lib/utils";
 import { Post } from "@/app/lib/models";
 
 
+const mongoose = require('mongoose');
+
+
 export async function GET(request: NextRequest) {
     const requestParams = request.nextUrl.searchParams;
     const query = requestParams.get('search')
@@ -15,7 +18,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
     const post = await request.json();
-    // post.userId = 'done';
     const createdPost = new Post(post);
     // Must add the userId* attribute...
 

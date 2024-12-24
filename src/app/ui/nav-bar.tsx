@@ -17,7 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="relative z-40">
+    <div className="relative z-40 bg-gray-500">
       <div className="fixed top-0 left-0 right-0 flex justify-between py-5 px-16 bg-gray-100 shadow-md">
         <span>
           <Link href={"/"}>Logo</Link>
