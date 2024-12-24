@@ -22,8 +22,9 @@ const PostSchema = new mongoose.Schema({
         message: "{VALUE} is not supported"
     },
     userId: {
-        type: mongoose.Types.ObjectId
-    },
+        type: String,
+        required: [true, "{VALUE} is required"]
+    }
 }, { 
     timestamps: true 
 });

@@ -32,7 +32,7 @@ export type FormState = | {
     title: String,
     content: String,
     type: String,
-    userId: mongoose.Types.ObjectId
+    userId: String
   }
 
   export interface FormComment {

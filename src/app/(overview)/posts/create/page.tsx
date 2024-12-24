@@ -6,6 +6,8 @@ import PostFormComponent from "@/app/ui/post-form";
 import Link from "next/link";
 
 export default function Page() {
+
+
   return (
     <div className="px-16 my-5">
       <div className="flex justify-between">
