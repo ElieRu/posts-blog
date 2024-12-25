@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { deletePost } from "../lib/actions";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function CardItemsPost({ items, updateItems, search }) {
+  const { user } = useUser();
+
   const handleDelete = (id: String) => {
     const fetchDelete = async () => {
-      const response = await deletePost(id);
+      const response = await deletePost(id, user?.sub);
       updateItems(response);
     };
     fetchDelete();

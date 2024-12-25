@@ -1,20 +1,21 @@
 import { useState } from "react";
 import { createComment } from "../lib/actions";
 import { FormComment } from "../lib/definitions";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function CommentForm({ postId, updateItems }) {
+  const { user } = useUser();
   const [form, setForm] = useState<FormComment>({
-    content: "",
+    content: ""
   });
 
   const [error, setError] = useState(false);
-
   const [disable, setDisable] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setDisable(true);
     setError(false);
-    const response = await createComment(postId, form);
+    const response = await createComment(postId, form, user?.sub, user?.picture);
     if (response.error) {
       updateItems(response.comments);
       setError(true);

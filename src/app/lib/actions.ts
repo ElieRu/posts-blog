@@ -1,25 +1,26 @@
 import { PostForm, FormComment } from "./definitions";
 
 export async function createPost (form: PostForm) {
+    
     const createdPost = await fetch(`/api/posts`, {
         method: "post",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(form)
     });
     
     return createdPost.json();
 }
 
-export async function deletePost (id: String) {
+export async function deletePost (id: String, userId: String) {
     try {
-        const response = await fetch(`/api/posts/${id}`, {
+        const response = await fetch(`/api/posts/${id}?userId=${userId}`, {
           method: "delete",
         });
         return response.json();
     } catch (error) {
-    console.log(error);
+        console.log(error);
     }
 }
 
@@ -41,9 +42,9 @@ export async function updatePost(id: String, form: PostForm) {
 }
 
 // Comments actions
-export async function createComment(id: String, form: FormComment) {
+export async function createComment(id: String, form: FormComment, userId: String, picture: String) {
     try {
-        const createdComment = await fetch(`/api/posts/${id}`, {
+        const createdComment = await fetch(`/api/posts/${id}?userId=${userId}&picture=${picture}`, {
             method: 'post', 
             headers: {
                 "Content-Type": "application/json"
