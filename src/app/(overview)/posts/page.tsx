@@ -6,15 +6,21 @@ import Loading from "./loading";
 import { fetchPosts } from "@/app/lib/datas";
 import CardItemsPost from "@/app/ui/card-items-post";
 import SearchBar from "@/app/ui/search-bar";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Page() {
   const [posts, setPosts] = useState([]);
+  const { isLoading, user } = useUser();
+
   const getPosts = async () => {
-    setPosts(await fetchPosts());
+    setPosts(await fetchPosts(user?.sub));
   };
+
   useEffect(() => {
-    getPosts();
-  }, []);
+    if (user?.sub) {
+      getPosts();
+    }
+  }, [user?.sub]);
 
   const [search, setSearch] = useState("");
 
@@ -31,7 +37,6 @@ export default function Page() {
           </Link>
         </div>
       </div>
-
       <div className="my-4">
         <CardItemsPost
           items={posts}

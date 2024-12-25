@@ -23,7 +23,7 @@ export default function Navbar() {
           <Link href={"/"}>Logo</Link>
         </span>
         <div>
-          {navs.map((nav, i) => {
+          {navs?.map((nav, i) => {
             const isActive = pathname.startsWith(nav.link);
             return (
               <Link

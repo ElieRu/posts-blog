@@ -37,9 +37,12 @@ const CommentSchema = new Schema({
       postId: {
         type: mongoose.Types.ObjectId
       },
-    //   userId: {
-    //     bsonType: mongoose.Types.ObjectId
-    //   },
+      userId: {
+        type: String
+      },
+      picture: {
+        type: String
+      },
 }, { 
     timestamps: true 
 });

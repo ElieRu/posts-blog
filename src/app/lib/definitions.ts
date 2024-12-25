@@ -37,7 +37,6 @@ export type FormState = | {
 
   export interface FormComment {
     content: String
-    // postId: mongoose.Types.ObjectId
   }
   
 

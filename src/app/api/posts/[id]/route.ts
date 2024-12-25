@@ -1,5 +1,5 @@
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Comment, Post } from "../../../lib/models";
 
 export async function GET(
@@ -59,9 +59,13 @@ export async function PUT(
 }
 
 export async function DELETE(
-    request: Request,
+    request: NextRequest,
     { params }: {params: { id: String }}
 ) {
+
+    const getUserId = request.nextUrl.searchParams;
+    const userId = getUserId.get('userId');
+
     await Post.deleteOne({
         _id: params.id
     });
@@ -70,19 +74,25 @@ export async function DELETE(
         postId: params.id
     })
 
-    const posts = await Post.find({});
+    const posts = await Post.find({})
+        .where('userId', userId);
     return Response.json(posts);
 }
 
 // Comment Requests..
 export async function POST(
-        request: Request,
+        request: NextRequest,
         { params }: { params: { id: String }}
     ) {
     const comment = await request.json();  
+    const getParams = request.nextUrl.searchParams;
+    const getUserId = getParams.get('userId');
+    const getPicture = getParams.get('picture');
     const form = {
         content: comment,
-        postId: params.id
+        postId: params.id,
+        userId: getUserId,
+        picture: getPicture
     };
 
     const newComment = new Comment(form);

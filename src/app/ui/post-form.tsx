@@ -10,7 +10,7 @@ export default function PostFormComponent({ postId }) {
     title: "",
     content: "",
     type: "",
-    userId: ""
+    userId: "",
   });
 
   const [disable, setDisable] = useState(false);
@@ -39,7 +39,7 @@ export default function PostFormComponent({ postId }) {
         setError(true);
       }
     } else {
-      form.userId = user ? user.sub : null
+      form.userId = user ? user.sub : null;
       const response = await createPost(form);
       console.log(form);
       if (response.errors) {
@@ -57,7 +57,6 @@ export default function PostFormComponent({ postId }) {
 
   return (
     <>
-      {isLoading ? <p>Loading...</p> : <p>{user.sub}</p>}
       <form method="post" onSubmit={handleSubmit}>
         <input
           placeholder="Title"
