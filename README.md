@@ -70,9 +70,9 @@ To run the tests type `npm test`
 
 👤 Elie Ruhamya
 
-Github: [@elie-ruhamya](https://github.com/ElieRu)
-Linkedin: [@elie-ruhamya](https://www.linkedin.com/in/elie-ruhamya-996826285)
-Twitter: [@elie-ruhamya](https://twitter.com/RuhamyaElie)
+- Github: [@elie-ruhamya](https://github.com/ElieRu)
+- Linkedin: [@elie-ruhamya](https://www.linkedin.com/in/elie-ruhamya-996826285)
+- Twitter: [@elie-ruhamya](https://twitter.com/RuhamyaElie)
 
 ### Support
 
