@@ -14,7 +14,7 @@ export default function Page({
 }: {
   params: { id: String; name: String };
 }) {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const fetchPost = async () => {
