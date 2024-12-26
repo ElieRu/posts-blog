@@ -1,17 +1,11 @@
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import connect_db from "@/app/lib/utils";
 import { Post } from "@/app/lib/models";
-// import { useParams } from "next/navigation";
-
-
 const mongoose = require('mongoose');
-
 
 export async function GET(request: NextRequest) {
     const requestParams = request.nextUrl.searchParams;
-    const query = requestParams.get('search')
-    await connect_db();
+    const query = requestParams.get('search');
     
     const queryId = requestParams.get('userId')
     const all_posts = await Post.find({})
