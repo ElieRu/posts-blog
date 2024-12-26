@@ -50,7 +50,7 @@ export default function Page({
         <div style={{ width: "45%" }}>
           <CommentForm
             postId={params.id}
-            updateItems={(comments) => setComments(comments)}
+            updateItems={(comments: SetStateAction<never[]>) => setComments(comments)}
           />
           <div className="mt-5">
             <h3 className="text-lg underline">All comments</h3>
@@ -60,7 +60,7 @@ export default function Page({
               <CardComments
                 postId={params.id}
                 items={comments}
-                updateItems={(comments) => setComments(comments)}
+                updateItems={(comments: SetStateAction<never[]>) => setComments(comments)}
               />
             )}
           </div>
