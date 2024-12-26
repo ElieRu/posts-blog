@@ -38,8 +38,7 @@ export function Footer() {
                   name="email"
                   placeholder="Enter your email"
                   className="w-full bg-gray-100 text-gray-700 rounded-l-lg py-3 px-4 focus:outline-none focus:ring-purple-600 focus:border-transparent"
-                  autocomplete="off"
-                  required=""
+                  autoComplete="off"
                 />
                 <button
                   type="submit"

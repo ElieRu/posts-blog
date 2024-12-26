@@ -10,7 +10,7 @@ export default function Page({
   params: { id: String; name: String };
 }) {
   return (
-    <div className="px-16 my-5">
+    <div className="px-16 my-6">
       <div className="mt-3 flex justify-between items-center">
         <Link className="text-[#7e22ce] underline" href={`/posts`}>
           All Posts

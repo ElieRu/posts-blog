@@ -32,7 +32,7 @@ export default function CardItemsPost({ items, updateItems, search }) {
                         ? item.title.slice(0, 20) + "..."
                         : item.title}
                     </div>
-                    <button onClick={() => handleDelete(item._id)}>
+                    { window.location.href !== 'http://localhost:3000/' && <button onClick={() => handleDelete(item._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -48,7 +48,7 @@ export default function CardItemsPost({ items, updateItems, search }) {
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                       </svg>
-                    </button>
+                    </button>}
                   </div>
                   <div className=" text-base">
                     <p className="text-[#374151] capitalize">

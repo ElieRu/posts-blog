@@ -9,7 +9,7 @@ export default function Page() {
 
 
   return (
-    <div className="px-16 my-5">
+    <div className="px-16 my-6">
       <div className="flex justify-between">
         <div className="w-1/2">
           <h1 className="text-3xl">Create New Post</h1> 

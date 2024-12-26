@@ -29,7 +29,7 @@ export default function Page({
   }, []);
 
   return (
-    <div className="px-16 my-5">
+    <div className="px-16 my-6">
       <div className="flex justify-between mb-8">
         <div className="mt-3 flex">
           <Link className="text-[#7e22ce] underline" href={`/posts`}>
