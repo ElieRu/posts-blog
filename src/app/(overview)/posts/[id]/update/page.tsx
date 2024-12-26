@@ -11,7 +11,7 @@ export default function Page({
 }) {
   return (
     <div className="px-16 my-6">
-      <div className="mt-3 flex justify-between items-center">
+      <div className="mt-3 flex justify-between items-center mb-8">
         <Link className="text-[#7e22ce] underline" href={`/posts`}>
           All Posts
         </Link>
