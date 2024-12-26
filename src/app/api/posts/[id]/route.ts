@@ -26,6 +26,7 @@ export async function GET(
           ];
     
         const result = await Post.aggregate(agg);
+
         return NextResponse.json(result);
     } catch (error) {
         return new NextResponse(

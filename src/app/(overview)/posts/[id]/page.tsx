@@ -1,7 +1,7 @@
 "use client";
 import { useRouter, useParams } from "next/navigation";
 // import { useRouter } from "next/router";
-import { Suspense, useEffect, useState } from "react";
+import { SetStateAction, Suspense, useEffect, useState } from "react";
 import { Metadata } from "next";
 import { deletePost, getPost, updatePost } from "@/app/lib/actions";
 import Link from "next/link";
@@ -50,7 +50,7 @@ export default function Page({
         <div style={{ width: "45%" }}>
           <CommentForm
             postId={params.id}
-            updateItems={(comments) => setComments(comments)}
+            updateItems={(comments: SetStateAction<never[]>) => setComments(comments)}
           />
           <div className="mt-5">
             <h3 className="text-lg underline">All comments</h3>
