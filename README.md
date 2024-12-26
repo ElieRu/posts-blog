@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# Posts Blog
+
+Post-blog enable you to manage your posts, add your comments and protect your data using authentication (Auth0).
+
+## Summury
+
+The page bellow shows all user's posts.
+![All users posts](https://github.com/ElieRu/posts-blog/blob/main/app-img/all-posts.png)
+
+You can create a new page by submitting the page form bellow (Create nwe post).
+![Create new post](https://github.com/ElieRu/posts-blog/blob/main/app-img/Screenshot%202024-12-26%20215119.png)
+
+The page bellow help you to authenticate your count with [auth0](https://auth0.com/docs).
+![Login page](https://github.com/ElieRu/posts-blog/blob/main/app-img/login.png)
+
+By the page bellow, you ca see the post's description and add comments.
+![The description page](https://github.com/ElieRu/posts-blog/blob/main/app-img/post-description.png)
+
+The user's creator is abble to update a post by page bellow.
+![The update's post page](https://github.com/ElieRu/posts-blog/blob/main/app-img/update.png)
+
+## Built with
+
+- Typescript
+- React
+- NextJs
+- Postman
+- Mongodb
+- Node js
+- Netlify
+- [Auth0](https://auth0.com/docs)
+
+## Live Demo
+
+[Demo](https://splendid-fenglisu-7011a3.netlify.app/)
 
 ## Getting Started
 
-First, run the development server:
+Here are the steps to follow in order to get this project on your local computer.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Prerequisite
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `node v20.13.1 +`
+- `npm v9.5.0 +`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Clone this repo by typing `git clone`
 
-## Learn More
+### Install
 
-To learn more about Next.js, take a look at the following resources:
+Install dependacies with `npm install`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Start the local server by running `npm run dev`
 
-## Deploy on Vercel
+### Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is deployed on [Netlify](https://app.netlify.com/).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To get the deployment build of the code run `npm run build`
+
+### Testing
+
+To run the tests type `npm test`
+
+### Author
+
+👤 Elie Ruhamya
+
+Github: [@elie-ruhamya](https://github.com/ElieRu)
+Linkedin: [@elie-ruhamya](https://www.linkedin.com/in/elie-ruhamya-996826285)
+Twitter: [@elie-ruhamya](https://twitter.com/RuhamyaElie)
+
+### Support
+
+Give a ⭐️ if you like this project!
+
+
+
+
