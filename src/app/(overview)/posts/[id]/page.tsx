@@ -8,6 +8,7 @@ import Link from "next/link";
 import CommentForm from "@/app/ui/comment-form";
 import CardComments from "@/app/ui/card-comments";
 import CardPost from "@/app/ui/card-post";
+import { FormComment } from "@/app/lib/definitions";
 
 export default function Page({
   params,
@@ -15,14 +16,19 @@ export default function Page({
   params: { id: String; name: String };
 }) {
   const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+
   const fetchPost = async () => {
     const data = await getPost(params.id);
     setPosts(data);
     setComments(data[0].comments);
     setIsLoading(false);
   };
+
+  // const handleItems = (comments) => {
+  //   setComments(comments);
+  // }
 
   useEffect(() => {
     fetchPost();
@@ -50,7 +56,7 @@ export default function Page({
         <div style={{ width: "45%" }}>
           <CommentForm
             postId={params.id}
-            updateItems={(comments: SetStateAction<never[]>) => setComments(comments)}
+            updateItems={(comments) => setComments(comments)}
           />
           <div className="mt-5">
             <h3 className="text-lg underline">All comments</h3>
