@@ -22,6 +22,7 @@ export default function CommentForm({ postId, updateItems }) {
       user?.picture
     );
     if (response.error) {
+      // console.log(response.comments);
       updateItems(response.comments);
       setError(true);
     } else {

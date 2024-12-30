@@ -26,9 +26,14 @@ export default function Page({
     setIsLoading(false);
   };
 
-  // const handleItems = (comments) => {
-  //   setComments(comments);
-  // }
+  interface Items {
+    
+  }
+
+  const handleItems = (items: Array) => {
+    console.log(items);
+    setComments(items);
+  }
 
   useEffect(() => {
     fetchPost();
@@ -56,7 +61,7 @@ export default function Page({
         <div style={{ width: "45%" }}>
           <CommentForm
             postId={params.id}
-            updateItems={(comments) => setComments(comments)}
+            updateItems={() => handleItems(comments)}
           />
           <div className="mt-5">
             <h3 className="text-lg underline">All comments</h3>

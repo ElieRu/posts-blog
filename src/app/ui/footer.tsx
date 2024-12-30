@@ -3,7 +3,7 @@ export function Footer() {
     // <div >
       <div className="flex flex-col w-full h-fit bg-[#374151] text-[#e5e7eb] px-16 py-7">
         <div className="flex flex-row">
-          <div className="flex flex-col gap-2 justify-center w-[35%] w-[35%]">
+          <div className="flex flex-col gap-2 justify-center w-[35%]">
             <div className="flex items-center w-full gap-4">
               <div className="text-xl font-bold ">Elie Ruhamya</div>
             </div>
