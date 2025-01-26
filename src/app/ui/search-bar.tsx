@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-export default function SearchBar({ search, onChange }) {
+export default function SearchBar({ search, onChange }: {
+  search: string | number | undefined,
+  onChange: unknown
+}) {
+
   return (
     <div>
         <div className="relative text-gray-400 mt-1">
@@ -29,7 +33,7 @@ export default function SearchBar({ search, onChange }) {
             placeholder="Search"
             autoComplete="off"
             value={search}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={e => e.target.value}
           />
         </div>
     </div>

@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { PostForm } from "../lib/definitions";
 import { createPost, getPost, updatePost } from "../lib/actions";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-export default function PostFormComponent({ postId }) {
+export default function PostFormComponent({ postId }: { postId: String }) {
   const { user, isLoading } = useUser();
 
   const [form, setForm] = useState<PostForm>({
     title: "",
     content: "",
     type: "",
-    userId: "",
+    userId: user ? user?.sub : null,
   });
 
   const [disable, setDisable] = useState(false);
@@ -26,9 +26,7 @@ export default function PostFormComponent({ postId }) {
     fetchPost();
   }, []);
 
-  const handleSubmit = async (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleSubmit = async ( event: React.FormEvent<HTMLFormElement> ) => {
     event.preventDefault();
     setDisable(true);
     setError(false);
@@ -39,7 +37,6 @@ export default function PostFormComponent({ postId }) {
         setError(true);
       }
     } else {
-      form.userId = user ? user.sub : null;
       const response = await createPost(form);
       console.log(form);
       if (response.errors) {

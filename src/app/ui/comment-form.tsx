@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { createComment } from "../lib/actions";
-import { FormComment } from "../lib/definitions";
+import { CallbackCommentsItems, Comments, FormComment } from "../lib/definitions";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-export default function CommentForm({ postId, updateItems }) {
+export default function CommentForm({
+  postId,
+  updateItems,
+}: {
+  postId: String;
+  updateItems: CallbackCommentsItems;
+}) {
   const { user } = useUser();
   const [form, setForm] = useState<FormComment>({
     content: "",
@@ -11,8 +17,9 @@ export default function CommentForm({ postId, updateItems }) {
 
   const [error, setError] = useState(false);
   const [disable, setDisable] = useState(false);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setDisable(true);
     setError(false);
     const response = await createComment(
@@ -42,7 +49,10 @@ export default function CommentForm({ postId, updateItems }) {
             style={{ resize: "none" }}
             rows={5}
             value={form.content}
-            onChange={(e) => setForm(e.target.value)}
+            onChange={(e) => setForm({
+              ...form, 
+              content: e.target.value
+            })}
           ></textarea>
         </div>
 

@@ -1,4 +1,6 @@
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { PostForm, FormComment } from "./definitions";
+import { NextResponse } from "next/server";
 
 export async function createPost (form: PostForm) {
     
@@ -13,7 +15,9 @@ export async function createPost (form: PostForm) {
     return createdPost.json();
 }
 
-export async function deletePost (id: String, userId: String) {
+export async function deletePost (
+    id: string, userId: string | null | undefined
+) {
     try {
         const response = await fetch(`/api/posts/${id}?userId=${userId}`, {
           method: "delete",
@@ -42,7 +46,12 @@ export async function updatePost(id: String, form: PostForm) {
 }
 
 // Comments actions
-export async function createComment(id: String, form: FormComment, userId: String, picture: String) {
+export async function createComment(
+    id: String, 
+    form: FormComment, 
+    userId: string | null | undefined, 
+    picture: String | null | undefined
+) {
     try {
         const createdComment = await fetch(`/api/posts/${id}?userId=${userId}&picture=${picture}`, {
             method: 'post', 
