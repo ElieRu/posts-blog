@@ -1,5 +1,5 @@
 
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { z } from 'zod'
  
 export const SignupFormSchema = z.object({
@@ -29,14 +29,60 @@ export type FormState = | {
     } | undefined
 
   export interface PostForm {
-    title: String,
-    content: String,
-    type: String,
-    userId: String
+    title: string,
+    content: string,
+    type: string,
+    userId: string | null | undefined
   }
 
   export interface FormComment {
-    content: String
+    content: string
   }
   
+  export type Post = {
+    _id: string
+    title: string
+    content: string
+    type: string
+    userId: string | null | undefined
+    updatedAt: string 
+    createdAt: string 
+    __v: number
+  }
+
+export type Posts = Post[] | [];
+
+export interface CallbackPostsItems {
+  (arg: Posts): Posts
+}
+
+export interface CallbackCommentsItems {
+  (arg: Comments): Comments
+}
+
+export const ObjectIdFormat = (value: string) => {
+  return new Types.ObjectId(value)
+}
+
+export type Comment = {
+  _id: string
+  content: string
+  postId: string
+  userId: string
+  picture: string
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+
+export type Comments = Comment[];
+
+export type UpdateCommentsItems = (comments: Comments) => Comments;
+
+export type PostsComments = [
+  Post,
+  Comments | null | undefined
+];
+
+export type SearchType = string
 

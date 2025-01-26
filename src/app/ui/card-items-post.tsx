@@ -1,11 +1,20 @@
 import Link from "next/link";
 import { deletePost } from "../lib/actions";
+import { CallbackPostsItems, ObjectIdFormat, Posts } from "../lib/definitions";
+import { string } from "zod";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-export default function CardItemsPost({ items, updateItems, search }) {
+export default function CardItemsPost({
+  items,
+  updateItems,
+  search
+}: {
+  items: Posts
+  updateItems: CallbackPostsItems
+  search: string
+}) {
   const { user } = useUser();
-
-  const handleDelete = (id: String) => {
+  const handleDelete = (id: string) => {
     const fetchDelete = async () => {
       const response = await deletePost(id, user?.sub);
       updateItems(response);
@@ -15,7 +24,7 @@ export default function CardItemsPost({ items, updateItems, search }) {
 
   return (
     <>
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-9 px-1 py-1 ">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-9 px-1 py-1 ">
         {items
           .filter((post) => {
             return search.toLowerCase() === ""
@@ -32,23 +41,25 @@ export default function CardItemsPost({ items, updateItems, search }) {
                         ? item.title.slice(0, 20) + "..."
                         : item.title}
                     </div>
-                    { window.location.href !== 'http://localhost:3000/' && <button onClick={() => handleDelete(item._id)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="feather feather-activity"
-                      >
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                      </svg>
-                    </button>}
+                    {window.location.href !== "http://localhost:3000/" && (
+                      <button onClick={() => handleDelete(item._id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          className="feather feather-activity"
+                        >
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    )}
                   </div>
                   <div className=" text-base">
                     <p className="text-[#374151] capitalize">

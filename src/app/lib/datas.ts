@@ -14,7 +14,7 @@ export const fetchAllPosts = async () => {
 }
 
 
-export const fetchPosts = async (userId: String) => {
+export const fetchPosts = async (userId: string | null | undefined) => {
     try {
         const response = await fetch(`/api/posts?userId=${userId}`, {
             method: "get",
@@ -23,6 +23,8 @@ export const fetchPosts = async (userId: String) => {
             }
         });
         const data = await response.json();
+        console.log(data);
+        
         return data;        
     } catch (error) {
         console.log(error);        

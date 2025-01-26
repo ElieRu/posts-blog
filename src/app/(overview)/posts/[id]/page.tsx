@@ -8,16 +8,16 @@ import Link from "next/link";
 import CommentForm from "@/app/ui/comment-form";
 import CardComments from "@/app/ui/card-comments";
 import CardPost from "@/app/ui/card-post";
-import { FormComment } from "@/app/lib/definitions";
+import { CallbackCommentsItems, CallbackPostsItems, Comments, FormComment, Posts, PostsComments, SearchType } from "@/app/lib/definitions";
 
 export default function Page({
   params,
 }: {
   params: { id: String; name: String };
 }) {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Posts>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comments>([]);
 
   const fetchPost = async () => {
     const data = await getPost(params.id);
@@ -26,18 +26,19 @@ export default function Page({
     setIsLoading(false);
   };
 
-  interface Items {
-    
-  }
-
-  const handleItems = (items: Array) => {
-    console.log(items);
-    setComments(items);
+  const handleItems = (items: Comments): Comments => {
+    setComments(items); 
+    return comments
   }
 
   useEffect(() => {
     fetchPost();
   }, []);
+
+  const updateItems = (comments: Comments): Comments => {
+    setComments(comments);
+    return comments;
+  }
 
   return (
     <div className="px-16 my-6">
@@ -71,7 +72,7 @@ export default function Page({
               <CardComments
                 postId={params.id}
                 items={comments}
-                updateItems={(comments) => setComments(comments)}
+                updateItems={updateItems}
               />
             )}
           </div>

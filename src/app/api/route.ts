@@ -8,6 +8,6 @@ export async function GET(request: NextRequest) {
     await connect_db();
     
     // const queryId = requestParams.get('userId')
-    const datas = await Post.find({});
+    const datas = await Post.find({});    
     return NextResponse.json(datas);
 } 

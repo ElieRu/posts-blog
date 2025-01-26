@@ -7,9 +7,10 @@ import CardItemsPost from "@/app/ui/card-items-post";
 import SearchBar from "@/app/ui/search-bar";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Loading from "./loading";
+import { Posts, SearchType } from "@/app/lib/definitions";
 
 export default function Page() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Posts>([]);
   const { isLoading, user } = useUser();
 
   const getPosts = async () => {
@@ -22,13 +23,15 @@ export default function Page() {
     }
   }, [user?.sub]);
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<SearchType>("");
+  const updateItems = (posts: Posts): Posts => {
+    setPosts(posts)
+    return posts
+  }
 
   return (
-    <div className="px-16 my-6">
-      
-      <Loading></Loading>
-      
+    <div className="px-16 my-6">      
+      <Loading></Loading>      
       {(!isLoading && user) && <div>
         <div className="flex justify-between content-center items-center">
           <SearchBar search={search} onChange={setSearch} />
@@ -44,7 +47,7 @@ export default function Page() {
         <div className="my-4">
           <CardItemsPost
             items={posts}
-            updateItems={(posts) => setPosts(posts)}
+            updateItems={updateItems}
             search={search}
           />
         </div>
